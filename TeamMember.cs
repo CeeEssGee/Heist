@@ -1,4 +1,4 @@
-namespace heist
+namespace Heist
 {
 
     public class TeamMember
@@ -15,7 +15,7 @@ namespace heist
             set
             {
                 if (value >= 1 ||
-                value <= 10)
+                value <= 100)
                 {
                     skillLevel = value;
                 }
