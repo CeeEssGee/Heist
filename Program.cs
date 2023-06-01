@@ -68,17 +68,27 @@ namespace Heist
                 {
                     TotalSkillLevel += individual.SkillLevel;
                 };
-                System.Console.WriteLine($"Your team's total skill level is {TotalSkillLevel}.");
-
                 void addAnotherTeamMember()
                 {
                     NewTeamMember();
 
                 }
 
-                // Compare the number with the bank's difficulty level. If the team's skill level is greater than or equal to the bank's difficulty level, Display a success message, otherwise display a failure message.
-                System.Console.WriteLine($"The bank's difficulty level is {theBank.BankDifficultyLevel}");
-                if (theBank.BankDifficultyLevel > TotalSkillLevel)
+
+                // Create a random number between -10 and 10 for the heist's luck value.
+                Random random = new Random();
+                int luckValue = random.Next(-10, 11);
+                // Add this luckValue number to the bank's difficulty level.
+                int adjustedBankDifficultyLevel = theBank.BankDifficultyLevel + luckValue;
+
+                // Before displaying the success or failure message, display a report that shows.
+                //The team's combined skill level
+                // The bank's difficulty level
+                System.Console.WriteLine($"Your team's total skill level is {TotalSkillLevel}.");
+                System.Console.WriteLine($"The bank's difficulty level is {adjustedBankDifficultyLevel}");
+
+                // Compare the number with the bank's difficulty level. If the team's skill level is greater than or equal to the bank's difficulty level, Display a success message, otherwise display a failure message.  
+                if (adjustedBankDifficultyLevel > TotalSkillLevel)
                 {
                     System.Console.WriteLine("Your heist failed - Go straight to jail!");
                 }
