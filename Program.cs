@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Heist
 {
@@ -11,54 +12,82 @@ namespace Heist
 
             static void NewTeamMember()
             {
-                // starting line
+                // Print the message "Plan Your Heist!".
                 Console.WriteLine("Plan your Heist");
 
+                Bank theBank = new Bank();
+
                 System.Console.WriteLine("Time to add your Team Members!");
-                Team HeistTeam = new Team();
+                Team heistTeam = new Team();
 
                 // Add a team member
                 void NewTeamMember()
                 {
+                    // Prompt the user to enter a team member's name and save that name.
                     Console.WriteLine("What is your team member's name?");
                     string TeamMemberName = Console.ReadLine();
+                    // Stop collecting team members when a blank name is entered.
                     if (TeamMemberName == "")
                     {
                         return;
                     }
+                    // Prompt the user to enter a team member's skill level and save that skill level with the name.
                     Console.WriteLine("What is your team member's skill level on a scale of 1 to 100 (whole numbers only)?");
                     string skillLevelString = Console.ReadLine();
                     int skillLevel = Convert.ToInt32(skillLevelString);
+                    // Prompt the user to enter a team member's courage factor and save that courage factor with the name.
                     Console.WriteLine("What is your team member's courage level on a scale of 0.0 to 2.0?");
                     string courageLevelString = (Console.ReadLine());
                     decimal courageLevel = Convert.ToDecimal(courageLevelString);
 
                     TeamMember theTeamMember = new TeamMember(TeamMemberName, skillLevel, courageLevel);
-                    theTeamMember.GetDescription();
+                    // Display the team member's information.
+                    // Stop displaying each team member's information.
+                    // theTeamMember.GetDescription();
 
-                    HeistTeam.AddToTeam(theTeamMember);
-                    addAnother();
+                    // Collect several team members' information.
+                    heistTeam.AddToTeam(theTeamMember);
+                    addAnotherTeamMember();
+
                 }
                 NewTeamMember();
 
+                // Display a message containing the number of members of the team.
+                Console.WriteLine($"You have added {heistTeam.HeistTeam.Count} team members to the Heist.");
 
+                // Display each team member's information.
+                // Stop displaying each team member's information.
+                // foreach (TeamMember individual in heistTeam.HeistTeam.Values)
+                // {
+                //     individual.GetDescription();
+                // };
 
-
-                void addAnother()
+                // Sum the skill levels of the team. Save that number.
+                int TotalSkillLevel = 0;
+                foreach (TeamMember individual in heistTeam.HeistTeam.Values)
                 {
-                    Console.WriteLine("Add another team member?\n\t1) Yes\n\t2) No");
-                    string answer = Console.ReadLine();
-                    int numAnswer = int.Parse(answer);
+                    TotalSkillLevel += individual.SkillLevel;
+                };
+                System.Console.WriteLine($"Your team's total skill level is {TotalSkillLevel}.");
 
-                    switch (numAnswer)
-                    {
-                        case 1:
-                            NewTeamMember();
-                            break;
-                        case 2:
-                            return;
-                    }
+                void addAnotherTeamMember()
+                {
+                    NewTeamMember();
+
                 }
+
+                // Compare the number with the bank's difficulty level. If the team's skill level is greater than or equal to the bank's difficulty level, Display a success message, otherwise display a failure message.
+                System.Console.WriteLine($"The bank's difficulty level is {theBank.BankDifficultyLevel}");
+                if (theBank.BankDifficultyLevel > TotalSkillLevel)
+                {
+                    System.Console.WriteLine("Your heist failed - Go straight to jail!");
+                }
+                else
+                {
+                    System.Console.WriteLine("Your heist was successful - Collect all the monies!");
+                }
+
+
             }
 
 
