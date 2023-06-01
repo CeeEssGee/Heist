@@ -12,10 +12,18 @@ namespace Heist
 
             static void NewTeamMember()
             {
+                System.Console.WriteLine();
                 // Print the message "Plan Your Heist!".
                 Console.WriteLine("Plan your Heist");
 
+
                 Bank theBank = new Bank();
+                // At the beginning of the program, prompt the user to enter the difficulty level of the bank.
+                System.Console.WriteLine();
+                System.Console.WriteLine($"How challenging do you want your bank to be?");
+                string bankDifficultyString = Console.ReadLine();
+                int BankDifficulty = int.Parse(bankDifficultyString);
+                theBank.BankDifficultyLevel = BankDifficulty;
 
                 System.Console.WriteLine("Time to add your Team Members!");
                 Team heistTeam = new Team();
@@ -100,11 +108,18 @@ namespace Heist
                         if (adjustedBankDifficultyLevel > TotalSkillLevel)
                         {
                             System.Console.WriteLine("Your heist failed - Go straight to jail!");
+                            theBank.failedRuns += 1;
                         }
                         else
                         {
                             System.Console.WriteLine("Your heist was successful - Collect all the monies!");
+                            theBank.successfulRuns += 1;
                         }
+
+                        // At the end of the program, display a report showing the number of successful runs and the number of failed runs.
+                        System.Console.WriteLine();
+                        System.Console.WriteLine($"You robbed the bank successfully {theBank.successfulRuns} times and failed {theBank.failedRuns} times.");
+
 
                     }
 
